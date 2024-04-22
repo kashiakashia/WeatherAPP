@@ -104,9 +104,11 @@ let city = document.querySelector("#city-search");
 city.addEventListener("submit", updateCity);
 
 let currentDate = document.querySelector("#todays-date");
-currentDate.innerHTML = `${
-  days[now.getDay()]
-} ${now.getHours()}:${now.getMinutes()}`;
+let minutes = now.getMinutes();
+if (minutes < 10) {
+  minutes = `0${minutes}`;
+}
+currentDate.innerHTML = `${days[now.getDay()]} ${now.getHours()}:${minutes}`;
 
 /* let city = prompt("Please eneter the city name");
 if (weather[city] !== undefined) {
