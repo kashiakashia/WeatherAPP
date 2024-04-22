@@ -83,7 +83,7 @@ function apiURL(city) {
 }
 
 function displayData(response) {
-  console.log(response.data);
+  console.log(response.data.condition.icon_url);
   let header = document.querySelector("h1");
   let cityCurrentTemp = document.querySelector("#city-temp");
   let humidity = document.querySelector("#humidity");
@@ -91,6 +91,8 @@ function displayData(response) {
   let wind = document.querySelector("#wind");
   let city = response.data.city;
   let temp = Math.round(response.data.temperature.current);
+  let icon = document.querySelector("#icon");
+  icon.innerHTML = `<img src="${response.data.condition.icon_url}" class="emoji" />`;
 
   header.innerHTML = city;
   cityCurrentTemp.innerHTML = temp;
