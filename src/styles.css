@@ -61,7 +61,7 @@ footer {
   width: fit-content;
 }
 
-.search {
+input {
   background-color: #f9f7fe;
   border-style: none;
   border-radius: 5px;

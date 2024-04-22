@@ -83,13 +83,20 @@ function apiURL(city) {
 }
 
 function displayData(response) {
+  console.log(response.data);
   let header = document.querySelector("h1");
   let cityCurrentTemp = document.querySelector("#city-temp");
+  let humidity = document.querySelector("#humidity");
+  let description = document.querySelector("#description");
+  let wind = document.querySelector("#wind");
   let city = response.data.city;
   let temp = Math.round(response.data.temperature.current);
 
   header.innerHTML = city;
   cityCurrentTemp.innerHTML = temp;
+  description.innerHTML = response.data.condition["description"];
+  humidity.innerHTML = response.data.temperature.humidity + "%";
+  wind.innerHTML = response.data.wind["speed"] + " km/h";
 }
 
 // --------------------------------------------------------
