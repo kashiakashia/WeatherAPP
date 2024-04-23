@@ -28,6 +28,30 @@ function displayData(response) {
   wind.innerHTML = response.data.wind["speed"] + " km/h";
 }
 
+function displayForecast() {
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
+
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHtml = "";
+
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      `<div class="forecast-day">
+                    ${day}
+                    <div>
+                        <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/broken-clouds-day.png"
+                            class="forecast-icon" />
+                    </div>
+                    <div class="forecast-temp">
+                        <span class="forecast-max"><strong>18°</strong></span> - <span class="forecast-min">14°</span>
+                    </div>
+                </div>`;
+  });
+
+  forecastElement.innerHTML = forecastHtml;
+}
+
 // --------------------------------------------------------
 
 let now = new Date();
@@ -53,3 +77,4 @@ if (minutes < 10) {
 currentDate.innerHTML = `${days[now.getDay()]} ${now.getHours()}:${minutes}`;
 
 apiURL("Los Angeles");
+displayForecast();

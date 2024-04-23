@@ -114,10 +114,13 @@ input {
   width: 75px;
 }
 
-.forecast {
+.forecast-weather {
   margin-top: 30px;
   font-size: 14px;
   display: flex;
+  justify-content: space-between;
+  margin-right: 30px;
+  margin-left: 10px;
 }
 
 .forecast-icon {
