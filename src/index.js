@@ -12,6 +12,12 @@ function apiURL(city) {
   axios.get(apiUrl).then(displayData);
 }
 
+function getForecast(city) {
+  const apiKey = "3c3a6079af0b02obb02t493ac64d61cc";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function displayData(response) {
   let header = document.querySelector("h1");
   let cityCurrentTemp = document.querySelector("#city-temp");
@@ -26,9 +32,12 @@ function displayData(response) {
   description.innerHTML = response.data.condition["description"];
   humidity.innerHTML = response.data.temperature.humidity + "%";
   wind.innerHTML = response.data.wind["speed"] + " km/h";
+
+  getForecast(response.data.city);
 }
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response);
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
 
   let forecastElement = document.querySelector("#forecast");
