@@ -37,30 +37,46 @@ function displayData(response) {
 }
 
 function displayForecast(response) {
-  console.log(response);
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
+  const startIndex = now.getDay() + 1;
+  const numberOfDays = 5;
 
   let forecastElement = document.querySelector("#forecast");
   let forecastHtml = "";
 
-  days.forEach(function (day) {
+  for (let i = 0; i < numberOfDays; i++) {
+    const index = (startIndex + i) % days.length;
     forecastHtml =
       forecastHtml +
       `<div class="forecast-day">
-                    ${day}
+                    ${days[index]}
                     <div>
-                        <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/broken-clouds-day.png"
+                        <img src="${
+                          response.data.daily[index].condition.icon_url
+                        }"
                             class="forecast-icon" />
                     </div>
                     <div class="forecast-temp">
-                        <span class="forecast-max"><strong>18°</strong></span> - <span class="forecast-min">14°</span>
+                        <span class="forecast-max"><strong>${Math.round(
+                          response.data.daily[index].temperature.maximum
+                        )}°</strong></span> - 
+                        <span class="forecast-min">${Math.round(
+                          response.data.daily[index].temperature.minimum
+                        )}°</span>
                     </div>
                 </div>`;
-  });
 
-  forecastElement.innerHTML = forecastHtml;
+    forecastElement.innerHTML = forecastHtml;
+  }
 }
 
+function setDate() {
+  let minutes = now.getMinutes();
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  currentDate.innerHTML = `${days[now.getDay()]} ${now.getHours()}:${minutes}`;
+}
 // --------------------------------------------------------
 
 let now = new Date();
@@ -79,11 +95,6 @@ let currentDate = document.querySelector("#todays-date");
 
 city.addEventListener("submit", updateCity);
 
-let minutes = now.getMinutes();
-if (minutes < 10) {
-  minutes = `0${minutes}`;
-}
-currentDate.innerHTML = `${days[now.getDay()]} ${now.getHours()}:${minutes}`;
-
+setDate();
 apiURL("Los Angeles");
 displayForecast();
